@@ -88,7 +88,12 @@ export const convertMdToPdf = async (
 		`${config.highlight_style}.css`,
 	);
 
-	config.stylesheet = [...new Set([...config.stylesheet, highlightStylesheet])];
+	const sheets = [...config.stylesheet];
+	if (config.highlight_style) {
+		sheets.push(highlightStylesheet);
+	}
+
+	config.stylesheet = [...new Set(sheets)];
 
 	const html = getHtml(md, config);
 
